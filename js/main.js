@@ -727,6 +727,189 @@ function initLightbox() {
   });
 }
 
+/**
+ * Product inquire dialog on shop page.
+ * Prefills message with product name / category / price (no product id).
+ * Submits via Kora public forms API as form_type: product_inquiry.
+ */
+function initProductInquire() {
+  const root = document.getElementById('inquire-dialog');
+  const form = document.getElementById('inquire-form');
+  if (!root || !form || form.dataset.bound) return;
+  form.dataset.bound = 'true';
+
+  const triggers = document.querySelectorAll('[data-inquire]');
+  if (!triggers.length) return;
+
+  const panel = root.querySelector('.inquire-dialog__panel');
+  const dismissEls = root.querySelectorAll('[data-inquire-dismiss]');
+  const summaryEl = root.querySelector('[data-inquire-summary]');
+  const notesField = form.querySelector('[name="message"]');
+
+  const config = window.KORA_SITE_CONFIG || {};
+  const apiBaseUrl = (config.apiBaseUrl || '').replace(/\/+$/, '');
+  const businessId = config.businessId || '';
+  const recaptchaSiteKey = (config.recaptchaSiteKey || '').trim();
+  const recaptchaEl = form.querySelector('.g-recaptcha');
+
+  let lastFocus = null;
+  let activeProduct = { name: '', category: '', price: '' };
+
+  if (recaptchaEl && recaptchaSiteKey) {
+    recaptchaEl.setAttribute('data-sitekey', recaptchaSiteKey);
+    makeRecaptchaResponsive(recaptchaEl);
+  } else if (recaptchaEl && !recaptchaSiteKey) {
+    recaptchaEl.style.display = 'none';
+  }
+
+  const buildInquirySummary = (product) => {
+    const lines = [`I'm interested in purchasing:`, '', `Product: ${product.name || 'Product'}`];
+    if (product.category) lines.push(`Brand / category: ${product.category}`);
+    if (product.price) lines.push(`Price: ${product.price}`);
+    return lines.join('\n');
+  };
+
+  const open = (trigger) => {
+    activeProduct = {
+      name: (trigger.getAttribute('data-product-name') || '').trim(),
+      category: (trigger.getAttribute('data-product-category') || '').trim(),
+      price: (trigger.getAttribute('data-product-price') || '').trim(),
+    };
+
+    if (summaryEl) summaryEl.textContent = buildInquirySummary(activeProduct);
+    if (notesField) notesField.value = '';
+
+    setFormStatus(form, '', '');
+    lastFocus = document.activeElement;
+    root.hidden = false;
+    document.body.classList.add('has-inquire-dialog');
+    requestAnimationFrame(() => {
+      root.classList.add('is-open');
+      const firstField = form.querySelector('[name="name"]');
+      if (firstField) firstField.focus();
+    });
+
+    if (recaptchaEl && recaptchaSiteKey) {
+      ensureRecaptchaScript(recaptchaSiteKey).catch(() => {
+        setFormStatus(form, 'Security check failed to load. Please refresh and try again.', 'error');
+      });
+    }
+  };
+
+  const close = () => {
+    root.classList.remove('is-open');
+    document.body.classList.remove('has-inquire-dialog');
+    window.setTimeout(() => {
+      root.hidden = true;
+      form.reset();
+      resetRecaptcha(form);
+      setFormStatus(form, '', '');
+      activeProduct = { name: '', category: '', price: '' };
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }, 300);
+  };
+
+  triggers.forEach((btn) => {
+    btn.addEventListener('click', () => open(btn));
+  });
+
+  dismissEls.forEach((el) => {
+    el.addEventListener('click', close);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && root.classList.contains('is-open')) close();
+  });
+
+  if (panel) {
+    panel.addEventListener('click', (e) => e.stopPropagation());
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = ((form.querySelector('[name="name"]') || {}).value || '').trim();
+    const email = ((form.querySelector('[name="email"]') || {}).value || '').trim();
+    const phone = ((form.querySelector('[name="phone"]') || {}).value || '').trim();
+    const message = ((form.querySelector('[name="message"]') || {}).value || '').trim();
+
+    if (!name || !email || !phone) {
+      setFormStatus(form, 'Please fill in your name, email, and phone.', 'error');
+      return;
+    }
+
+    if (!businessId || !apiBaseUrl) {
+      setFormStatus(form, 'Form submission is not configured for this site.', 'error');
+      return;
+    }
+
+    if (recaptchaEl && !recaptchaSiteKey) {
+      setFormStatus(form, 'Form temporarily unavailable.', 'error');
+      return;
+    }
+
+    if (recaptchaEl && recaptchaSiteKey) {
+      try {
+        await ensureRecaptchaScript(recaptchaSiteKey);
+      } catch {
+        setFormStatus(form, 'Security check failed to load. Please refresh and try again.', 'error');
+        return;
+      }
+      if (!getRecaptchaToken(form)) {
+        setFormStatus(form, 'Please complete the security check.', 'error');
+        return;
+      }
+    }
+
+    const captchaToken = getRecaptchaToken(form);
+    const productName = activeProduct.name || '';
+    const productCategory = activeProduct.category || '';
+    const productPrice = activeProduct.price || '';
+    const inquirySummary = buildInquirySummary(activeProduct);
+    const fullMessage = message
+      ? `${inquirySummary}\n\nAdditional message:\n${message}`
+      : inquirySummary;
+
+    setSubmittingState(form, true, 'Sending...');
+    setFormStatus(form, 'Sending...', 'neutral');
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/v1/public/forms/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          business_id: businessId,
+          form_type: 'product_inquiry',
+          form_data: {
+            name,
+            email,
+            phone,
+            message: fullMessage,
+            product_name: productName,
+            product_category: productCategory,
+            product_price: productPrice,
+          },
+          submitter_email: email,
+          captcha_token: captchaToken || '',
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(parseApiError(data, 'Something went wrong. Please try again.'));
+      }
+      form.reset();
+      resetRecaptcha(form);
+      setFormStatus(form, data.message || 'Thank you! We received your inquiry.', 'success');
+      window.setTimeout(close, 1600);
+    } catch (error) {
+      resetRecaptcha(form);
+      setFormStatus(form, error.message || 'Something went wrong. Please try again.', 'error');
+    } finally {
+      setSubmittingState(form, false);
+    }
+  });
+}
+
 function initOnPartialsLoaded() {
   initMobileMenu();
   initNavbarScroll();
@@ -739,6 +922,7 @@ document.addEventListener('site:partials-loaded', initOnPartialsLoaded);
 document.addEventListener('DOMContentLoaded', () => {
   initCookieBanner();
   initContactForm();
+  initProductInquire();
   initScrollAnimations();
   initSmoothScroll();
   initReviewsCarousel();

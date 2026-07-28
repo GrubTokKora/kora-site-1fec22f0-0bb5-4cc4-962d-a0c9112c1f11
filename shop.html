@@ -48,7 +48,7 @@
 <h2 class="font-heading product-card__title">iS Clinical Triple Cleanse</h2>
 <p class="product-card__price">$105.00</p>
 <p class="product-card__excerpt">Refresh your regimen with the spa-worthy TRIPLE CLEANSE treatment. CLEANSING COMPLEX, WARMING HONEY CLEANSER, and CREAM CLEANSER team up in this talented multitasking trio.</p>
-<a class="btn-primary" href="contact-us.html">Inquire</a>
+<button type="button" class="btn-primary" data-inquire data-product-name="iS Clinical Triple Cleanse" data-product-category="IS Clinical" data-product-price="$105.00">Inquire</button>
 </div>
 </article>
 <article class="product-card product-card--shop fade-in" id="is-cleaning-complex">
@@ -60,7 +60,7 @@
 <h2 class="font-heading product-card__title">iS Cleaning Complex</h2>
 <p class="product-card__price">$24.00</p>
 <p class="product-card__excerpt">Travel-size cleansing gel that is powerful yet gentle enough for hypersensitive skin — thoroughly cleanses without stripping essential natural oils.</p>
-<a class="btn-primary" href="contact-us.html">Inquire</a>
+<button type="button" class="btn-primary" data-inquire data-product-name="iS Cleaning Complex" data-product-category="IS Clinical" data-product-price="$24.00">Inquire</button>
 </div>
 </article>
 <article class="product-card product-card--shop fade-in" id="azelaic-radiance-serum">
@@ -72,7 +72,7 @@
 <h2 class="font-heading product-card__title">Azelaic Radiance Serum</h2>
 <p class="product-card__price">$52.00</p>
 <p class="product-card__excerpt">Illuminating serum with Arbutin, Kojic, Salicylic, Azelaic, and fruit acids to support clearer, more radiant skin.</p>
-<a class="btn-primary" href="contact-us.html">Inquire</a>
+<button type="button" class="btn-primary" data-inquire data-product-name="Azelaic Radiance Serum" data-product-category="PCA Skin" data-product-price="$52.00">Inquire</button>
 </div>
 </article>
 <article class="product-card product-card--shop product-card--sale fade-in" id="veda-healing-grape-skin-toner-organic-ingredients">
@@ -85,7 +85,7 @@
 <h2 class="font-heading product-card__title">Veda Healing Grape Skin Toner (Organic Ingredients)</h2>
 <p class="product-card__price"><span class="product-card__price-old">$60.00</span> <span class="product-card__price-sale">$50.00</span></p>
 <p class="product-card__excerpt">Antioxidant-rich grape skin toner that helps improve texture, hydrate, and soothe irritated skin with organic ingredients.</p>
-<a class="btn-primary" href="contact-us.html">Inquire</a>
+<button type="button" class="btn-primary" data-inquire data-product-name="Veda Healing Grape Skin Toner (Organic Ingredients)" data-product-category="Veda Healing Spa" data-product-price="$50.00">Inquire</button>
 </div>
 </article>
 <article class="product-card product-card--shop fade-in" id="hyaluronic-eye-restore">
@@ -97,7 +97,7 @@
 <h2 class="font-heading product-card__title">Hyaluronic Eye Restore</h2>
 <p class="product-card__price">$60.00</p>
 <p class="product-card__excerpt">Hyaluronic acid eye crème that deeply hydrates the delicate eye area while supporting elasticity and resilience.</p>
-<a class="btn-primary" href="contact-us.html">Inquire</a>
+<button type="button" class="btn-primary" data-inquire data-product-name="Hyaluronic Eye Restore" data-product-category="PCA Skin" data-product-price="$60.00">Inquire</button>
 </div>
 </article>
 <article class="product-card product-card--shop fade-in" id="is-clinical-sheald-recovery-balm">
@@ -109,7 +109,7 @@
 <h2 class="font-heading product-card__title">iS Clinical Sheald Recovery Balm</h2>
 <p class="product-card__price">$28.00</p>
 <p class="product-card__excerpt">Moisture-rich balm that replenishes dry, sensitive, or compromised skin and helps soothe post-procedure discomfort.</p>
-<a class="btn-primary" href="contact-us.html">Inquire</a>
+<button type="button" class="btn-primary" data-inquire data-product-name="iS Clinical Sheald Recovery Balm" data-product-category="IS Clinical" data-product-price="$28.00">Inquire</button>
 </div>
 </article>
 <article class="product-card product-card--shop fade-in" id="pure-clarity-trial-kit">
@@ -121,7 +121,7 @@
 <h2 class="font-heading product-card__title">Pure Clarity Trial Kit</h2>
 <p class="product-card__price">$20.00</p>
 <p class="product-card__excerpt">Sample kit to help minimize the look of blemishes, breakouts, enlarged pores, and congested skin for a clearer complexion.</p>
-<a class="btn-primary" href="contact-us.html">Inquire</a>
+<button type="button" class="btn-primary" data-inquire data-product-name="Pure Clarity Trial Kit" data-product-category="PCA Skin" data-product-price="$20.00">Inquire</button>
 </div>
 </article>
 </div>
@@ -133,6 +133,43 @@
 </div>
 </section>
 </main>
+
+<div id="inquire-dialog" class="inquire-dialog" hidden>
+  <div class="inquire-dialog__backdrop" data-inquire-dismiss tabindex="-1"></div>
+  <div class="inquire-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="inquire-dialog-label">
+    <div class="inquire-dialog__header">
+      <h2 id="inquire-dialog-label" class="inquire-dialog__title font-heading">Product Inquiry</h2>
+      <button type="button" class="inquire-dialog__close" data-inquire-dismiss aria-label="Close inquiry form">&times;</button>
+    </div>
+    <div class="inquire-dialog__summary" aria-live="polite">
+      <p class="inquire-dialog__summary-text" data-inquire-summary></p>
+    </div>
+    <form id="inquire-form" class="inquire-form" data-form-type="product_inquiry" novalidate>
+      <div class="inquire-form__field">
+        <label for="inquire-name">Name*</label>
+        <input class="form-input" id="inquire-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="inquire-form__field">
+        <label for="inquire-email">Email*</label>
+        <input class="form-input" id="inquire-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="inquire-form__field">
+        <label for="inquire-phone">Phone*</label>
+        <input class="form-input" id="inquire-phone" name="phone" type="tel" autocomplete="tel" required>
+      </div>
+      <div class="inquire-form__field">
+        <label for="inquire-message">Additional message <span class="inquire-form__optional">(optional)</span></label>
+        <textarea class="form-input inquire-form__textarea" id="inquire-message" name="message" rows="3" placeholder="Add any questions or notes…"></textarea>
+      </div>
+      <div class="g-recaptcha-scale">
+        <div class="g-recaptcha" data-sitekey=""></div>
+      </div>
+      <button type="submit" class="btn-primary inquire-form__submit">Send inquiry</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
+
 <div id="site-footer"></div>
 <div hidden="" id="cookie-banner">
 <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4">
