@@ -402,6 +402,17 @@ body {
 .form-status--success { color: #166534; }
 .form-status--neutral { color: var(--brand-muted); }
 
+.g-recaptcha-scale {
+  position: relative;
+  width: 100%;
+  max-width: 304px;
+  overflow: hidden;
+}
+
+.g-recaptcha-scale > .g-recaptcha {
+  transform-origin: 0 0;
+}
+
 /* Full-bleed newsletter subscribe */
 .subscribe-banner {
   position: relative;

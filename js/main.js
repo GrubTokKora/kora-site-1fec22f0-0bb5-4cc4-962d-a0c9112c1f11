@@ -1,6 +1,6 @@
 window.KORA_SITE_CONFIG = {
   apiBaseUrl: 'https://kora-agent.grubtok.com',
-  businessId: 'f0928a0a-5954-43eb-abd4-20850db1cce4',
+  businessId: '1fec22f0-0bb5-4cc4-962d-a0c9112c1f11',
   recaptchaSiteKey: '6LcsdJYsAAAAAAur-h7cYlZuGJTmijNHmOi5kFH7',
 };
 
@@ -126,6 +126,110 @@ function setFormStatus(form, text, kind) {
   else if (kind) statusEl.classList.add('form-status--neutral');
 }
 
+function setSubmittingState(form, isSubmitting, busyLabel) {
+  const submitBtn = form.querySelector('button[type="submit"]');
+  if (!submitBtn) return;
+  if (isSubmitting) {
+    submitBtn.dataset.originalText = submitBtn.textContent || 'Submit';
+    submitBtn.textContent = busyLabel || 'Sending...';
+    submitBtn.disabled = true;
+    return;
+  }
+  submitBtn.textContent = submitBtn.dataset.originalText || 'Submit';
+  submitBtn.disabled = false;
+}
+
+function parseApiError(data, fallback) {
+  const detail = data && data.detail;
+  if (typeof detail === 'string' && detail.trim()) return detail;
+  if (Array.isArray(detail)) {
+    const joined = detail.map((d) => d.msg || d.message || '').filter(Boolean).join(' ');
+    if (joined) return joined;
+  }
+  if (data && typeof data.message === 'string' && data.message.trim()) return data.message;
+  return fallback;
+}
+
+let recaptchaScriptPromise = null;
+const RECAPTCHA_W = 304;
+const RECAPTCHA_H = 78;
+const responsiveRecaptchaBoxes = [];
+
+function scaleRecaptcha(box) {
+  const wrap = box.parentElement;
+  if (!wrap || !wrap.classList.contains('g-recaptcha-scale')) return;
+  const available = wrap.clientWidth;
+  if (!available) return;
+  const scale = Math.min(1, available / RECAPTCHA_W);
+  box.style.transform = scale < 1 ? `scale(${scale.toFixed(4)})` : 'none';
+  wrap.style.height = `${Math.ceil(RECAPTCHA_H * scale)}px`;
+}
+
+function makeRecaptchaResponsive(box) {
+  if (!box || box.dataset.koraRecaptchaResponsive === 'true') return;
+  box.dataset.koraRecaptchaResponsive = 'true';
+
+  let wrap = box.parentElement;
+  if (!wrap || !wrap.classList.contains('g-recaptcha-scale')) {
+    wrap = document.createElement('div');
+    wrap.className = 'g-recaptcha-scale';
+    box.parentNode.insertBefore(wrap, box);
+    wrap.appendChild(box);
+  }
+
+  scaleRecaptcha(box);
+  const observer = new MutationObserver(() => scaleRecaptcha(box));
+  observer.observe(box, { childList: true, subtree: true });
+  responsiveRecaptchaBoxes.push(box);
+}
+
+let recaptchaResizeTimer = null;
+window.addEventListener('resize', () => {
+  window.clearTimeout(recaptchaResizeTimer);
+  recaptchaResizeTimer = window.setTimeout(() => {
+    responsiveRecaptchaBoxes.forEach(scaleRecaptcha);
+  }, 150);
+});
+
+function ensureRecaptchaScript(siteKey) {
+  if (!siteKey) return Promise.resolve();
+  if (typeof window.grecaptcha !== 'undefined') return Promise.resolve();
+  if (recaptchaScriptPromise) return recaptchaScriptPromise;
+  recaptchaScriptPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-kora-recaptcha="true"]');
+    if (existing) {
+      existing.addEventListener('load', () => resolve());
+      existing.addEventListener('error', () => reject(new Error('reCAPTCHA failed to load')));
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.async = true;
+    script.defer = true;
+    script.dataset.koraRecaptcha = 'true';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('reCAPTCHA failed to load'));
+    document.head.appendChild(script);
+  });
+  return recaptchaScriptPromise;
+}
+
+function getRecaptchaToken(form) {
+  if (typeof window.grecaptcha === 'undefined') return '';
+  const recaptchaEl = form.querySelector('.g-recaptcha');
+  if (!recaptchaEl) return '';
+  return window.grecaptcha.getResponse() || '';
+}
+
+function resetRecaptcha(form) {
+  if (typeof window.grecaptcha === 'undefined') return;
+  if (form.querySelector('.g-recaptcha')) window.grecaptcha.reset();
+}
+
+/**
+ * Kora public newsletter API — POST {apiBaseUrl}/api/v1/public/newsletter/subscribe
+ * Mirrors kora-agent app/api/v1/public_newsletter.py
+ */
 function initNewsletterForms() {
   const config = window.KORA_SITE_CONFIG || {};
   const apiBaseUrl = (config.apiBaseUrl || '').replace(/\/+$/, '');
@@ -145,60 +249,141 @@ function initNewsletterForms() {
       }
 
       if (!businessId || !apiBaseUrl) {
-        form.reset();
-        setFormStatus(form, 'Thank you for subscribing!', 'success');
+        setFormStatus(form, 'Newsletter is not configured for this site.', 'error');
         return;
       }
 
-      const submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) submitBtn.disabled = true;
+      setSubmittingState(form, true, 'Subscribing...');
       setFormStatus(form, 'Subscribing...', 'neutral');
 
       try {
         const response = await fetch(`${apiBaseUrl}/api/v1/public/newsletter/subscribe`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             business_id: businessId,
             email,
             phone_number: null,
             email_opt_in: true,
             sms_opt_in: false,
-            metadata: { page_path: window.location.pathname },
+            metadata: {
+              page_path: window.location.pathname,
+              referrer: document.referrer || '',
+            },
             source: 'static_website_widget',
           }),
         });
-        if (!response.ok) throw new Error('subscribe failed');
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(parseApiError(data, 'Could not subscribe right now. Please try again.'));
+        }
         form.reset();
-        setFormStatus(form, 'Thank you for subscribing!', 'success');
-      } catch {
-        setFormStatus(form, 'Could not subscribe right now. Please try again.', 'error');
+        setFormStatus(form, data.message || 'Thank you for subscribing!', 'success');
+      } catch (error) {
+        setFormStatus(form, error.message || 'Could not subscribe right now. Please try again.', 'error');
       } finally {
-        if (submitBtn) submitBtn.disabled = false;
+        setSubmittingState(form, false);
       }
     });
   });
 }
 
+/**
+ * Kora public forms API — POST {apiBaseUrl}/api/v1/public/forms/submit
+ * Mirrors kora-agent app/api/v1/public_forms.py (requires reCAPTCHA v2 token)
+ */
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form || form.dataset.bound) return;
   form.dataset.bound = 'true';
 
-  form.addEventListener('submit', (event) => {
+  const config = window.KORA_SITE_CONFIG || {};
+  const apiBaseUrl = (config.apiBaseUrl || '').replace(/\/+$/, '');
+  const businessId = config.businessId || '';
+  const recaptchaSiteKey = (config.recaptchaSiteKey || '').trim();
+  const recaptchaEl = form.querySelector('.g-recaptcha');
+
+  if (recaptchaEl && recaptchaSiteKey) {
+    recaptchaEl.setAttribute('data-sitekey', recaptchaSiteKey);
+    makeRecaptchaResponsive(recaptchaEl);
+    form.addEventListener('focusin', () => {
+      ensureRecaptchaScript(recaptchaSiteKey).catch(() => {
+        setFormStatus(form, 'Security check failed to load. Please refresh and try again.', 'error');
+      });
+    }, { once: true });
+  } else if (recaptchaEl && !recaptchaSiteKey) {
+    recaptchaEl.style.display = 'none';
+  }
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const name = (form.querySelector('[name="name"]') || {}).value || '';
-    const email = (form.querySelector('[name="email"]') || {}).value || '';
-    const message = (form.querySelector('[name="message"]') || {}).value || '';
-    if (!name.trim() || !email.trim() || !message.trim()) {
+
+    const name = ((form.querySelector('[name="name"]') || {}).value || '').trim();
+    const email = ((form.querySelector('[name="email"]') || {}).value || '').trim();
+    const message = ((form.querySelector('[name="message"]') || {}).value || '').trim();
+
+    if (!name || !email || !message) {
       setFormStatus(form, 'Please fill in your name, email, and message.', 'error');
       return;
     }
-    const subject = encodeURIComponent('Message from Veda Healing Spa website');
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    window.location.href = `mailto:vedahealingspa@gmail.com?subject=${subject}&body=${body}`;
-    setFormStatus(form, 'Thank you! Your email client should open to send your message.', 'success');
-    form.reset();
+
+    if (!businessId || !apiBaseUrl) {
+      setFormStatus(form, 'Form submission is not configured for this site.', 'error');
+      return;
+    }
+
+    if (recaptchaEl && !recaptchaSiteKey) {
+      setFormStatus(form, 'Form temporarily unavailable.', 'error');
+      return;
+    }
+
+    if (recaptchaEl && recaptchaSiteKey) {
+      try {
+        await ensureRecaptchaScript(recaptchaSiteKey);
+      } catch {
+        setFormStatus(form, 'Security check failed to load. Please refresh and try again.', 'error');
+        return;
+      }
+      const captchaToken = getRecaptchaToken(form);
+      if (!captchaToken) {
+        setFormStatus(form, 'Please complete the security check.', 'error');
+        return;
+      }
+    }
+
+    const captchaToken = getRecaptchaToken(form);
+    setSubmittingState(form, true, 'Sending...');
+    setFormStatus(form, 'Sending...', 'neutral');
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/v1/public/forms/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          business_id: businessId,
+          form_type: 'contact',
+          form_data: {
+            name,
+            email,
+            message,
+          },
+          submitter_email: email,
+          captcha_token: captchaToken || '',
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(parseApiError(data, 'Something went wrong. Please try again.'));
+      }
+      form.reset();
+      resetRecaptcha(form);
+      setFormStatus(form, data.message || 'Thank you! Your message has been received.', 'success');
+    } catch (error) {
+      resetRecaptcha(form);
+      setFormStatus(form, error.message || 'Something went wrong. Please try again.', 'error');
+    } finally {
+      setSubmittingState(form, false);
+    }
   });
 }
 
