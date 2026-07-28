@@ -1932,7 +1932,7 @@ body.has-gift-popup {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-height: min(92vh, 40rem);
+  max-height: 90vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 1.25rem 1.25rem 1.75rem;
@@ -2081,7 +2081,7 @@ body.has-gift-popup {
 
   .inquire-dialog__panel {
     width: min(100%, 40rem);
-    max-height: min(90vh, 48rem);
+    max-height: 90vh;
     border-radius: 0;
     border-bottom: 1px solid rgba(154, 144, 115, 0.35);
     box-shadow: 0 24px 60px rgba(22, 22, 22, 0.28);
@@ -2116,8 +2116,10 @@ body.has-gift-popup {
   }
 }
 
-body.has-inquire-dialog {
+body.has-inquire-dialog,
+html.has-inquire-dialog {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .product-card--shop .product-card__body button.btn-primary {

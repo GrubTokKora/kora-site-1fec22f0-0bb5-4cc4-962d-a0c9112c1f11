@@ -782,6 +782,7 @@ function initProductInquire() {
     setFormStatus(form, '', '');
     lastFocus = document.activeElement;
     root.hidden = false;
+    document.documentElement.classList.add('has-inquire-dialog');
     document.body.classList.add('has-inquire-dialog');
     requestAnimationFrame(() => {
       root.classList.add('is-open');
@@ -798,6 +799,7 @@ function initProductInquire() {
 
   const close = () => {
     root.classList.remove('is-open');
+    document.documentElement.classList.remove('has-inquire-dialog');
     document.body.classList.remove('has-inquire-dialog');
     window.setTimeout(() => {
       root.hidden = true;
