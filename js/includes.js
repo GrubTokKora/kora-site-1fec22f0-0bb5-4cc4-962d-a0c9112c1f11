@@ -6,6 +6,7 @@ const ICON_PHONE = '<svg class="icon icon-sm" xmlns="http://www.w3.org/2000/svg"
 
 const BOOK_URL = 'https://vedahealingspa.glossgenius.com/services';
 const GIFT_URL = 'https://squareup.com/gift/MLMJ25NP8QPZN/order';
+const MAP_URL = 'https://maps.app.goo.gl/Qfrjqw1frGago4Xg8';
 
 const HEADER_HTML = `
 <header class="site-header">
@@ -16,7 +17,7 @@ const HEADER_HTML = `
         203-297-7000
       </a>
       <div class="flex items-center gap-4">
-        <a href="https://www.facebook.com/105008240868072" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors" aria-label="Facebook">${ICON_FACEBOOK}</a>
+        <a href="https://www.facebook.com/vedahealingspa" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors" aria-label="Facebook">${ICON_FACEBOOK}</a>
         <a href="https://www.instagram.com/vedahealingspa/" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors" aria-label="Instagram">${ICON_INSTAGRAM}</a>
       </div>
     </div>
@@ -75,9 +76,9 @@ const FOOTER_HTML = `
         <a href="index.html" class="footer-logo-link" aria-label="Veda Healing Spa Home">
           <img src="https://quseprdus1.blob.core.windows.net/kora-business-images/user-media/1fec22f0-0bb5-4cc4-962d-a0c9112c1f11/de8c94d8-887e-4625-825f-ec262dbc28df/1785242213_6czo1c.png" alt="Veda Healing Spa" class="footer-logo" width="185" height="170" loading="lazy" decoding="async">
         </a>
-        <p class="footer-brand__text">Customized facials with massage on vital facial energy points for healthy skin and ultimate relaxation in Westport, Connecticut.</p>
+        <p class="footer-brand__text">Customized facials with massage on vital facial energy points for healthy skin and ultimate relaxation in Fairfield, Connecticut.</p>
         <div class="footer-social">
-          <a href="https://www.facebook.com/105008240868072" target="_blank" rel="noopener noreferrer" class="footer-social__link" aria-label="Facebook">${ICON_FACEBOOK}</a>
+          <a href="https://www.facebook.com/vedahealingspa" target="_blank" rel="noopener noreferrer" class="footer-social__link" aria-label="Facebook">${ICON_FACEBOOK}</a>
           <a href="https://www.instagram.com/vedahealingspa/" target="_blank" rel="noopener noreferrer" class="footer-social__link" aria-label="Instagram">${ICON_INSTAGRAM}</a>
         </div>
       </div>
@@ -98,11 +99,11 @@ const FOOTER_HTML = `
       <div>
         <h2 class="footer-heading">Visit Us</h2>
         <ul class="footer-list">
-          <li>Canal House, 315 Main Street<br>Westport, CT 06880</li>
+          <li><a href="${MAP_URL}" target="_blank" rel="noopener noreferrer">69 Sherman St W Ste 2S<br>Fairfield, CT 06824</a></li>
           <li><a href="tel:+12032977000">203-297-7000</a></li>
           <li><a href="mailto:vedahealingspa@gmail.com">vedahealingspa@gmail.com</a></li>
         </ul>
-        <p class="footer-hours">Mon–Fri 10am–6pm<br>Sat–Sun 11am–5pm<br>Appointments only.</p>
+        <p class="footer-hours">Mon–Sat 11:30am–6pm<br>Sunday Closed<br>Appointments only.</p>
       </div>
     </div>
 
@@ -121,7 +122,7 @@ const GIFT_POPUP_HTML = `
     <button type="button" class="gift-popup__close" data-gift-dismiss aria-label="Close gift card offer">&times;</button>
     <p class="gift-popup__eyebrow">Veda Healing Spa</p>
     <h2 id="gift-popup-title" class="gift-popup__title">Give the gift of radiant skin</h2>
-    <p class="gift-popup__text">Surprise someone special with a spa e-gift card for customized facials, energy-point massage, and deep relaxation in Westport.</p>
+    <p class="gift-popup__text">Surprise someone special with a spa e-gift card for customized facials, energy-point massage, and deep relaxation in Fairfield.</p>
     <div class="gift-popup__actions">
       <a href="${GIFT_URL}" target="_blank" rel="noopener noreferrer" class="btn-dark gift-popup__cta">Purchase an e-gift card</a>
       <button type="button" class="gift-popup__later" data-gift-dismiss>Maybe later</button>
