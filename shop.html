@@ -159,13 +159,13 @@
       </div>
       <div class="inquire-form__field">
         <label for="inquire-message">Additional message <span class="inquire-form__optional">(optional)</span></label>
-        <textarea class="form-input inquire-form__textarea" id="inquire-message" name="message" rows="3" placeholder="Add any questions or notes…"></textarea>
+        <input class="form-input" id="inquire-message" name="message" type="text" autocomplete="off" placeholder="Add any questions or notes…">
       </div>
       <div class="g-recaptcha-scale">
         <div class="g-recaptcha" data-sitekey=""></div>
       </div>
-      <button type="submit" class="btn-primary inquire-form__submit">Send inquiry</button>
       <p class="form-status" role="status" aria-live="polite"></p>
+      <button type="submit" class="btn-primary inquire-form__submit">Send inquiry</button>
     </form>
   </div>
 </div>

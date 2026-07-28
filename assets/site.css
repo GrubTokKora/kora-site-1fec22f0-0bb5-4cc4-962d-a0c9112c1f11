@@ -2051,11 +2051,6 @@ body.has-gift-popup {
   font-size: 1rem;
 }
 
-.inquire-form__textarea {
-  resize: vertical;
-  min-height: 4.5rem;
-}
-
 .inquire-form__submit {
   width: 100%;
   margin-top: 0.25rem;

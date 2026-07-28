@@ -827,6 +827,25 @@ function initProductInquire() {
     panel.addEventListener('click', (e) => e.stopPropagation());
   }
 
+  form.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const target = e.target;
+    if (!target || target.tagName !== 'INPUT') return;
+
+    e.preventDefault();
+    const fields = Array.from(
+      form.querySelectorAll('input:not([type="hidden"]):not([disabled]), button[type="submit"]:not([disabled])')
+    );
+    const index = fields.indexOf(target);
+    if (index === -1) return;
+    const next = fields[index + 1];
+    if (next) {
+      next.focus();
+      return;
+    }
+    form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit', { cancelable: true }));
+  });
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
