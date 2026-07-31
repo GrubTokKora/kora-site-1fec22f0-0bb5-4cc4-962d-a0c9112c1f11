@@ -4,7 +4,6 @@ window.KORA_SITE_CONFIG = {
   recaptchaSiteKey: '6LcsdJYsAAAAAAur-h7cYlZuGJTmijNHmOi5kFH7',
 };
 
-const COOKIE_KEY = 'veda_cookie_consent';
 const GIFT_BAR_KEY = 'veda_gift_bar_dismissed';
 
 function initMobileMenu() {
@@ -49,23 +48,6 @@ function initNavbarScroll() {
 
   update();
   window.addEventListener('scroll', update, { passive: true });
-}
-
-function initCookieBanner() {
-  const banner = document.getElementById('cookie-banner');
-  const acceptBtn = document.getElementById('cookie-accept');
-  if (!banner || !acceptBtn) return;
-
-  if (localStorage.getItem(COOKIE_KEY) === 'accepted') {
-    banner.hidden = true;
-    return;
-  }
-
-  banner.hidden = false;
-  acceptBtn.addEventListener('click', () => {
-    localStorage.setItem(COOKIE_KEY, 'accepted');
-    banner.hidden = true;
-  });
 }
 
 function initGiftPopup() {
@@ -941,7 +923,6 @@ function initOnPartialsLoaded() {
 document.addEventListener('site:partials-loaded', initOnPartialsLoaded);
 
 document.addEventListener('DOMContentLoaded', () => {
-  initCookieBanner();
   initContactForm();
   initProductInquire();
   initScrollAnimations();

@@ -1720,25 +1720,6 @@ body {
   border: 0;
 }
 
-#cookie-banner {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 60;
-  background: var(--brand-secondary);
-  color: #fff;
-  padding: 1.15rem 1rem;
-  font-size: 1rem;
-  line-height: 1.55;
-}
-
-#cookie-banner .btn-primary {
-  min-height: 2.75rem;
-  padding: 0.7rem 1.35rem;
-  font-size: 0.85rem;
-}
-
 /* Gift card center popup */
 .gift-popup {
   position: fixed;
