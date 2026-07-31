@@ -27,7 +27,7 @@ body {
 
 @media (min-width: 768px) {
   body {
-    padding-top: 8.5rem;
+    padding-top: 7.9rem;
   }
 }
 
@@ -950,7 +950,7 @@ body {
 
 @media (min-width: 768px) {
   .hero {
-    min-height: calc(100svh - 8.5rem);
+    min-height: calc(100svh - 7.9rem);
     align-items: center;
     justify-content: flex-start;
     text-align: left;
