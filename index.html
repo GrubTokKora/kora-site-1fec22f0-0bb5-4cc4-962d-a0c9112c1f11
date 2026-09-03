@@ -137,7 +137,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap"></noscript>
 <!-- KORA_GOOGLE_FONTS_END -->
-<link href="https://vedahealingspa.com" rel="canonical"/><meta content="https://vedahealingspa.com" property="og:url"/>
+<link href="https://vedahealingspa.com" rel="canonical"><meta content="https://vedahealingspa.com" property="og:url"/>
 
 </link></link><!-- KORA_FAVICON_START -->
 <link href="https://quseprdus1.blob.core.windows.net/kora-business-images/user-media/1fec22f0-0bb5-4cc4-962d-a0c9112c1f11/de8c94d8-887e-4625-825f-ec262dbc28df/1785242213_6czo1c.png" rel="icon" type="image/png"/>
@@ -152,7 +152,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div aria-hidden="true" class="hero-overlay"></div>
 <div class="hero__content fade-in is-visible">
 <p class="hero__brand">Veda Healing Spa</p>
-<h1 class="hero__title" id="hero-heading">Custom Facials &amp; Face Massage in Fairfield, CT</h1>
+<h1 class="hero__title" id="hero-heading">Veda Healing Spa: Relax and Rejuvenate in Fairfield, CT</h1>
 <p class="hero__subtitle">Personalized skincare with massage on vital facial energy points for healthy skin and
           deep relaxation.</p>
 <div class="hero__actions">
@@ -776,20 +776,129 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }());
 </script>
 </section>
+<script>
+  window.KORA_CONFIG = window.KORA_CONFIG || {};
+  window.KORA_CONFIG.apiBaseUrl = "https://kora-agent.grubtok.com";
+  window.KORA_CONFIG.businessId = "1fec22f0-0bb5-4cc4-962d-a0c9112c1f11";
+</script>
 <section aria-labelledby="subscribe-heading" class="subscribe-banner">
 <img alt="Champagne foam facial treatment at Veda Healing Spa in Fairfield, CT" class="subscribe-banner__media" decoding="async" height="1080" loading="lazy" src="https://quseprdus1.blob.core.windows.net/kora-business-images/user-media/1fec22f0-0bb5-4cc4-962d-a0c9112c1f11/de8c94d8-887e-4625-825f-ec262dbc28df/1785243851_e595by.jpg" width="1920"/>
 <div aria-hidden="true" class="subscribe-banner__overlay"></div>
 <div class="subscribe-banner__content fade-in">
-<h2 class="subscribe-banner__title" id="subscribe-heading">Subscribe</h2>
+<h2 class="subscribe-banner__title" id="subscribe-heading">Subscribe &amp; Save</h2>
 <p class="subscribe-banner__text">Get 10% off your first purchase when you sign up for our newsletter!</p>
-<form class="newsletter-form subscribe-banner__form" data-form-type="newsletter" novalidate="">
-<label class="sr-only" for="home-newsletter-email">Email</label>
-<input class="form-input subscribe-banner__input" id="home-newsletter-email" name="email" placeholder="Email" required="" type="email"/>
-<button class="btn-primary subscribe-banner__btn" type="submit">Sign up</button>
+<form class="newsletter-form subscribe-banner__form" id="home-newsletter-form" novalidate="">
+<div style="display:flex;flex-direction:column;gap:0.75rem;width:100%;max-width:420px;margin:0 auto;">
+<div>
+<label class="sr-only" for="home-newsletter-email">Email address</label>
+<input autocomplete="email" class="subscribe-banner__input" id="home-newsletter-email" name="email" placeholder="Email address" style="width:100%;background:#fff;color:#1b1b1b;border:none;padding:0.75rem 1rem;font-family:'Source Sans 3',sans-serif;font-size:1rem;box-sizing:border-box;" type="email"/>
+</div>
+<div>
+<label class="sr-only" for="home-newsletter-phone">Phone number (optional)</label>
+<input autocomplete="tel" class="subscribe-banner__input" id="home-newsletter-phone" name="phone" placeholder="Phone number (optional)" style="width:100%;background:#fff;color:#1b1b1b;border:none;padding:0.75rem 1rem;font-family:'Source Sans 3',sans-serif;font-size:1rem;box-sizing:border-box;" type="tel"/>
+</div>
+<div style="display:flex;flex-direction:column;gap:0.5rem;text-align:left;">
+<label style="display:flex;align-items:flex-start;gap:0.5rem;font-size:0.85rem;color:#f5edd8;cursor:pointer;line-height:1.4;">
+<input id="home-newsletter-email-consent" name="email_opt_in" style="margin-top:0.15rem;flex-shrink:0;accent-color:#e1d4aa;" type="checkbox"/>
+<span>Yes, send me email updates and offers from Veda Healing Spa.</span>
+</label>
+<label style="display:flex;align-items:flex-start;gap:0.5rem;font-size:0.85rem;color:#f5edd8;cursor:pointer;line-height:1.4;">
+<input id="home-newsletter-sms-consent" name="sms_opt_in" style="margin-top:0.15rem;flex-shrink:0;accent-color:#e1d4aa;" type="checkbox"/>
+<span>Yes, send me SMS text updates and offers from Veda Healing Spa.</span>
+</label>
+</div>
+<button class="btn-primary subscribe-banner__btn" id="home-newsletter-submit" style="width:100%;" type="submit">Sign Up</button>
+</div>
 </form>
-<p aria-live="polite" class="form-status subscribe-banner__status" role="status"></p>
+<p aria-live="polite" class="form-status subscribe-banner__status" id="home-newsletter-status" role="status" style="margin-top:0.75rem;min-height:1.5em;"></p>
 </div>
 </section>
+<script>
+(function () {
+  var form = document.getElementById('home-newsletter-form');
+  var statusEl = document.getElementById('home-newsletter-status');
+  var submitBtn = document.getElementById('home-newsletter-submit');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var cfg = window.KORA_CONFIG || window.KORA_SITE_CONFIG || {};
+    var apiBaseUrl = (cfg.apiBaseUrl || '').replace(/\/+$/, '');
+    var businessId = cfg.businessId;
+
+    if (!apiBaseUrl || !businessId) {
+      statusEl.textContent = 'Newsletter signup is temporarily unavailable. Please contact us directly.';
+      return;
+    }
+
+    var emailInput = document.getElementById('home-newsletter-email');
+    var phoneInput = document.getElementById('home-newsletter-phone');
+    var emailConsent = document.getElementById('home-newsletter-email-consent');
+    var smsConsent = document.getElementById('home-newsletter-sms-consent');
+
+    var emailVal = (emailInput.value || '').trim();
+    var phoneVal = (phoneInput.value || '').trim();
+    var wantsEmail = emailConsent.checked;
+    var wantsSms = smsConsent.checked;
+
+    statusEl.textContent = '';
+
+    if (!wantsEmail && !wantsSms) {
+      statusEl.textContent = 'Please select at least one subscription option (email or SMS).';
+      return;
+    }
+    if (wantsEmail && !emailVal) {
+      statusEl.textContent = 'Please enter your email address to receive email updates.';
+      emailInput.focus();
+      return;
+    }
+    if (wantsSms && !phoneVal) {
+      statusEl.textContent = 'Please enter your phone number to receive SMS updates.';
+      phoneInput.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing up…';
+
+    var payload = {
+      business_id: businessId,
+      email: emailVal || null,
+      phone_number: phoneVal || null,
+      email_opt_in: wantsEmail,
+      sms_opt_in: wantsSms,
+      source: 'static_site_widget'
+    };
+
+    fetch(apiBaseUrl + '/api/v1/public/newsletter/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          throw new Error(data.detail || ('HTTP ' + res.status));
+        });
+      }
+      return res.json();
+    })
+    .then(function () {
+      statusEl.textContent = 'Thank you for subscribing! Your 10% discount will be on its way shortly.';
+      form.reset();
+    })
+    .catch(function (err) {
+      console.error('Newsletter subscribe error:', err);
+      statusEl.textContent = 'Something went wrong. Please try again or contact us directly.';
+    })
+    .finally(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Sign Up';
+    });
+  });
+}());
+</script>
 </main>
 <div id="site-footer"></div>
 <script src="js/includes.js"></script>
