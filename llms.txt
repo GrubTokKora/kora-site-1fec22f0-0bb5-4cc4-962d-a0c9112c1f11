@@ -1,22 +1,25 @@
 # Veda Healing Spa
 
-> Veda Healing Spa offers custom facials and face massage services in Fairfield, CT. They are located at 69 Sherman St W Ste 2S.
+> Custom facials and face massage services in Fairfield, CT.
 
 ## Location & Contact
 - Address: 69 Sherman St W Ste 2S, Fairfield, CT 06824, United States
-- Phone: +12032977000
+- Phone: (203) 297-7000
 - Email: vedahealingspa@gmail.com
 - Website: https://vedahealingspa.com
 
 ## Hours
-- Monday: 11:30 AM – 6:00 PM
-- Tuesday: 11:30 AM – 6:00 PM
-- Wednesday: 11:30 AM – 6:00 PM
-- Thursday: 11:30 AM – 6:00 PM
-- Friday: 11:30 AM – 6:00 PM
-- Saturday: 11:30 AM – 6:00 PM
+- Monday–Saturday: 11:30 AM – 6:00 PM
 - Sunday: Closed
 
-## Action Links
-- Book Online: https://vedahealingspa.glossgenius.com/services
-- Gift Cards: https://squareup.com/gift/MLMJ25NP8QPZN/order
+## Pages
+- [Home](https://vedahealingspa.com/): Overview
+- [About the Founder](https://vedahealingspa.com/about-founder): Practitioner background
+- [Skin Care Services](https://vedahealingspa.com/services-skin-care): Facials and treatments
+- [Skin Treatment](https://vedahealingspa.com/services-skin-treatment): Treatment details
+- [Shop](https://vedahealingspa.com/shop): Products
+- [Contact](https://vedahealingspa.com/contact-us): Get in touch
+
+## Booking
+- [Book online](https://vedahealingspa.glossgenius.com/services)
+- [Gift cards](https://squareup.com/gift/MLMJ25NP8QPZN/order)
