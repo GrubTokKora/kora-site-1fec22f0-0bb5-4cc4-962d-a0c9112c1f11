@@ -2491,3 +2491,30 @@ body.lightbox-open {
   white-space: nowrap;
   border-width: 0;
 }
+
+.video-facade {
+  cursor: pointer;
+  background: linear-gradient(135deg, #2a2420, #4a3d2e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-facade__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--brand-primary, #e1d4aa);
+  color: #221511;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.video-facade__play svg {
+  margin-left: 3px;
+}

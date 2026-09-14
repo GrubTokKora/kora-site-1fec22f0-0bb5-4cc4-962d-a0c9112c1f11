@@ -213,9 +213,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2 class="section-title text-center">Video</h2>
 <h3 class="section-subtitle text-center">The Power of OM</h3>
 <div class="max-w-4xl mx-auto fade-in">
-<div class="video-wrap mb-8">
-<iframe allow="fullscreen; picture-in-picture" loading="lazy" src="https://player.vimeo.com/video/697791438?h=b1a0e178aa&amp;autoplay=0&amp;title=0&amp;portrait=0&amp;byline=0" title="The Power of OM"></iframe>
+<div class="video-wrap video-facade mb-8" data-video-facade="" data-vimeo-src="https://player.vimeo.com/video/697791438?h=b1a0e178aa&amp;autoplay=1&amp;title=0&amp;portrait=0&amp;byline=0" data-vimeo-title="The Power of OM">
+<button aria-label="Play video: The Power of OM" class="video-facade__play" type="button">
+<svg fill="none" height="28" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+</button>
 </div>
+<script>
+(function () {
+  var wrap = document.currentScript.previousElementSibling;
+  if (!wrap || !wrap.hasAttribute('data-video-facade')) return;
+  wrap.addEventListener('click', function () {
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', wrap.getAttribute('data-vimeo-src'));
+    iframe.setAttribute('title', wrap.getAttribute('data-vimeo-title'));
+    iframe.setAttribute('allow', 'fullscreen; picture-in-picture; autoplay');
+    wrap.innerHTML = '';
+    wrap.appendChild(iframe);
+  }, { once: true });
+})();
+</script>
 <p class="section-lead text-center" style="margin-bottom:0">Schedule a complimentary 20 min energy healing session and
             let's talk about the power of the universal sound OM (Aum).</p>
 </div>
