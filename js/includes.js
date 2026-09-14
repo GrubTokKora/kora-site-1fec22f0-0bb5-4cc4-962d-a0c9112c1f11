@@ -27,7 +27,7 @@ const HEADER_HTML = `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="navbar-inner flex justify-between items-center">
         <a href="index.html" class="flex items-center gap-3 group" aria-label="Veda Healing Spa Home">
-          <img src="https://quseprdus1.blob.core.windows.net/kora-business-images/user-media/1fec22f0-0bb5-4cc4-962d-a0c9112c1f11/de8c94d8-887e-4625-825f-ec262dbc28df/1785242213_6czo1c.png" alt="Veda Healing Spa" class="header-logo" width="185" height="170" loading="eager" decoding="async">
+          <img src="https://quseprdus1.blob.core.windows.net/kora-business-images/v2-uploads/1fec22f0-0bb5-4cc4-962d-a0c9112c1f11/2665f1bd-0995-4e78-81b3-a1be85db99db-01_1785242213_6czo1c.webp" alt="Veda Healing Spa" class="header-logo" width="185" height="170" loading="eager" decoding="async">
         </a>
 
         <div class="hidden lg:flex items-center gap-1">
@@ -74,7 +74,7 @@ const FOOTER_HTML = `
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="footer-logo-link" aria-label="Veda Healing Spa Home">
-          <img src="https://quseprdus1.blob.core.windows.net/kora-business-images/user-media/1fec22f0-0bb5-4cc4-962d-a0c9112c1f11/de8c94d8-887e-4625-825f-ec262dbc28df/1785242213_6czo1c.png" alt="Veda Healing Spa" class="footer-logo" width="185" height="170" loading="lazy" decoding="async">
+          <img src="https://quseprdus1.blob.core.windows.net/kora-business-images/v2-uploads/1fec22f0-0bb5-4cc4-962d-a0c9112c1f11/2665f1bd-0995-4e78-81b3-a1be85db99db-01_1785242213_6czo1c.webp" alt="Veda Healing Spa" class="footer-logo" width="185" height="170" loading="lazy" decoding="async">
         </a>
         <p class="footer-brand__text">Customized facials with massage on vital facial energy points for healthy skin and ultimate relaxation in Fairfield, Connecticut.</p>
         <div class="footer-social">
