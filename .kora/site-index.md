@@ -119,11 +119,11 @@ change to the site's content can land there; the rest only make the site work or
 - `robots.txt` — crawler rules and the sitemap link — derived from the site by the deploy, not written by hand
 - `sitemap.xml` — the list of page URLs — derived from the site by the deploy, not written by hand
 - `assets/site.css` — the site's styling, brand colours and type scale
-- `js/includes.js` — the header, navigation and footer markup for every page  [content]
+- `js/includes.js` — gift-card popup and active-nav highlighting after the shell loads
 - `js/main.js` — page behaviour, the product enquiry dialog and the forms
 
 ## shared (every page)
-The header, navigation, mobile menu and footer are NOT in the pages. They are rendered at
-load by `js/includes.js`, which is where every change to the shared chrome has to be made. Editing a
-page's markup to change the header will appear to do nothing, because there is no header in
-it to change.
+The header, navigation, mobile menu and footer are inlined on every page inside
+`<!-- kora:shell:header -->` and `<!-- kora:shell:footer -->`. They are propagated from
+index.html to every other page by `shell_propagation`. A change to any of them is made on
+index.html alone and copied automatically.
