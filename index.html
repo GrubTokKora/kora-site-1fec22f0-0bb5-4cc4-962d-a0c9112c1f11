@@ -132,10 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   ]
 }</script>
 <!-- KORA_GOOGLE_FONTS_START -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap"></noscript>
+<!-- kora:fonts --><!-- /kora:fonts -->
 <!-- KORA_GOOGLE_FONTS_END -->
 <link href="https://vedahealingspa.com" rel="canonical"><meta content="https://vedahealingspa.com" property="og:url"/>
 
@@ -560,7 +557,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   align-items: center;
   gap: 1rem;
   padding: 1.25rem 0;
-  font-family: "Cinzel", serif;
+  font-family: var(--kora-font-heading, "Cinzel"), serif;
   font-size: 1rem;
   font-weight: 600;
   color: #1b1b1b;
@@ -616,7 +613,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 .vhs-contact__eyebrow {
   text-align: center;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--kora-font-body, 'Source Sans 3'), sans-serif;
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -624,7 +621,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   margin-bottom: 0.75rem;
 }
 .vhs-contact__title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--kora-font-heading, 'Cinzel'), serif;
   font-size: clamp(1.6rem, 3vw, 2.25rem);
   font-weight: 600;
   color: #f5edd8;
@@ -670,7 +667,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .vhs-contact__col:last-child { padding-right: 0; padding-left: 2.5rem; }
 }
 .vhs-contact__col-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--kora-font-heading, 'Cinzel'), serif;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -702,7 +699,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   height: 16px;
 }
 .vhs-contact__item-label {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--kora-font-body, 'Source Sans 3'), sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -711,7 +708,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   margin-bottom: 0.2rem;
 }
 .vhs-contact__item-value {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--kora-font-body, 'Source Sans 3'), sans-serif;
   font-size: 0.95rem;
   color: #d4cbb5;
   line-height: 1.5;
@@ -732,7 +729,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 .vhs-hours-table tr:last-child { border-bottom: none; }
 .vhs-hours-table td {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--kora-font-body, 'Source Sans 3'), sans-serif;
   font-size: 0.9rem;
   color: #d4cbb5;
   padding: 0.55rem 0;
@@ -751,7 +748,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .vhs-hours-closed td { color: #5a5649 !important; }
 .vhs-contact__appt-note {
   margin-top: 1.25rem;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--kora-font-body, 'Source Sans 3'), sans-serif;
   font-size: 0.8rem;
   color: #7f7657;
   letter-spacing: 0.04em;

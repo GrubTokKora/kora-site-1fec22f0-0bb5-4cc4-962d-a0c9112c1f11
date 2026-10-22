@@ -8,8 +8,8 @@
   --brand-muted: #3d3b37;
   --brand-soft: #f6f6f6;
   --brand-border: #9a9073;
-  --font-heading: "Cinzel", Georgia, serif;
-  --font-body: "Source Sans 3", arial, sans-serif;
+  --font-heading: var(--kora-font-heading, "Cinzel"), Georgia, serif;
+  --font-body: var(--kora-font-body, "Source Sans 3"), arial, sans-serif;
 }
 
 html {

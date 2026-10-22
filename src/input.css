@@ -10,6 +10,7 @@
   --color-brand-muted: #3d3b37;
   --color-brand-soft: #f6f6f6;
   --color-brand-border: #9a9073;
-  --font-heading: "Cinzel", serif;
-  --font-body: "Source Sans 3", sans-serif;
+  --font-heading: var(--kora-font-heading, "Cinzel"), serif;
+  --font-body: var(--kora-font-body, "Source Sans 3"), sans-serif;
+  --font-accent: var(--kora-font-accent, var(--font-heading)), var(--font-heading);
 }
