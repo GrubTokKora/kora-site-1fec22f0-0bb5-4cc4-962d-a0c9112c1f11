@@ -3,7 +3,7 @@ Structure and the names of what each page offers. Values that change often — p
 address — and body copy are deliberately not recorded here; read the page itself for those.
 
 ## index.html → /
-title: Custom Facials & Face Massage in Fairfield, CT | Veda Healing Spa
+title: Ayurvedic Facials in Fairfield, CT | Veda Healing Spa
 purpose: The landing page — the spa's story, its founder, reviews, gallery, blog teasers, gift cards, featured products and FAQ.
 sections:
 - `#main-content` "Custom Facials & Face Massage in Fairfield, CT" — the page body, holding the hero and every section below it
@@ -51,7 +51,7 @@ also: Chemical Peels, Microdermabrasion, Dermaplaning and the Kansa Wand facial 
 also: The ids on this page are prefixed `sc-` and the equivalent ids on the treatments page are prefixed `st-`. The two pages are otherwise structurally identical, so an id-based change meant for one will not match the other even though the section is the same.
 
 ## services-skin-treatment.html → /services-skin-treatment
-title: Skin Treatments in Fairfield, CT — Exfoliation, Hydration & Restorative Therapies | Veda Healing Spa
+title: Chemical Peels & Skin Treatments in Fairfield, CT | Veda Healing Spa
 purpose: The skin-treatments page — the deeper treatments offered, how a session is structured, reviews and FAQ.
 sections:
 - `#main-content` "Professional Skin Treatments in Fairfield, CT" — the page body
@@ -84,7 +84,7 @@ also: Each product's id is its name turned into a slug, so renaming a product le
 also: Nothing on this page can be bought. Every product leads to the same enquiry pop-up, and the pop-up does not record which product it was opened from anywhere in the markup.
 
 ## blog-ayurvedic-facial.html → /blog-ayurvedic-facial
-title: Unlocking the Secrets of Ayurvedic Facial Treatments: Marma Point
+title: Ayurvedic Facial in Fairfield, CT: Marma Point Massage
 purpose: A blog post about Ayurvedic facial treatments and marma point massage.
 sections:
 - `#main-content` "Unlocking the Secrets of Ayurvedic Facial Treatments: Marma Point" — the post
