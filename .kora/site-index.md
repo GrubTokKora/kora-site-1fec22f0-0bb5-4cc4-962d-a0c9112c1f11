@@ -118,7 +118,6 @@ change to the site's content can land there; the rest only make the site work or
 - `llms.txt` — a plain-text summary of the business for AI crawlers — derived from the site by the deploy, not written by hand
 - `robots.txt` — crawler rules and the sitemap link — derived from the site by the deploy, not written by hand
 - `sitemap.xml` — the list of page URLs — derived from the site by the deploy, not written by hand
-- `assets/site.css` — the site's styling, brand colours and type scale
 - `js/includes.js` — gift-card popup and active-nav highlighting after the shell loads
 - `js/main.js` — page behaviour, the product enquiry dialog and the forms
 
